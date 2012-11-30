@@ -41,7 +41,6 @@ call extend(s:mapping_common, {
             \ '<C-I>': '<C-U>',
             \ '<C-J>': '<C-N>',
             \ '<C-K>': '<C-E>',
-            \ '<C-L>': '<C-I>',
             \ '<C-N>': '<C-K>',
             \ '<C-O>': '<C-Y>',
             \ '<C-P>': '<Leader>;',
