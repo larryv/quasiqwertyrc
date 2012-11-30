@@ -3,8 +3,7 @@
 "
 " Part 5 - Square bracket commands.
 "
-" Version: 0.1.0
-" Last Change: 2012 Nov 27
+" Last Change: 2012 Nov 30
 " Maintainer: Lawrence Velázquez <larryv@alum.mit.edu>
 " License: GNU General Public License
 "
