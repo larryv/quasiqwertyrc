@@ -3,7 +3,7 @@
 "
 " Part 8 - Clean up.
 "
-" Last Change: 2012 Nov 30
+" Last Change: 2012 Dec 6
 " Maintainer: Lawrence Velázquez <larryv@alum.mit.edu>
 " License: GNU General Public License
 "
@@ -29,6 +29,22 @@ if exists("g:loaded_colemakdotvim")
     finish
 endif
 
+" Fix bug with 'Select All' menu item
+if exists("did_install_default_menus")
+    function <SID>SelectAll()
+        execute "normal! gg" . (&slm == "" ? "VG" : "gH\<C-O>G")
+    endfunction
+
+    noremenu <silent> &Edit.&Select\ All<Tab>ggVG :<C-U>call <SID>SelectAll()<CR>
+    inoremenu <silent> &Edit.&Select\ All<Tab>ggVG <C-O>:call <SID>SelectAll()<CR>
+    cnoremenu <silent> &Edit.&Select\ All<Tab>ggVG <C-U>call <SID>SelectAll()<CR>
+
+    noremenu <silent> PopUp.Select\ &All :<C-U>call <SID>SelectAll()<CR>
+    inoremenu <silent> PopUp.Select\ &All <C-O>:call <SID>SelectAll()<CR>
+    cnoremenu <silent> PopUp.Select\ &All <C-U>call <SID>SelectAll()<CR>
+endif
+
+" Clean up after ourselves
 unlet lhs rhs
 
 let &cpoptions = g:CDV_cpoptions_original
