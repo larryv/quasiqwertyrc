@@ -3,7 +3,7 @@
 "
 " Part 1 - All modes.
 "
-" Last Change: 2012 Nov 30
+" Last Change: 2012 Dec 6
 " Maintainer: Lawrence Velázquez <larryv@alum.mit.edu>
 " License: GNU General Public License
 "
@@ -40,6 +40,7 @@ call extend(s:mapping_common, {
             \ '<C-I>': '<C-U>',
             \ '<C-J>': '<C-N>',
             \ '<C-K>': '<C-E>',
+            \ '<C-L>': '<Leader>i',
             \ '<C-N>': '<C-K>',
             \ '<C-O>': '<C-Y>',
             \ '<C-P>': '<Leader>;',

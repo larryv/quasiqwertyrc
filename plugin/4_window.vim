@@ -3,7 +3,7 @@
 "
 " Part 4 - Window commands.
 "
-" Last Change: 2012 Nov 30
+" Last Change: 2012 Dec 6
 " Maintainer: Lawrence Velázquez <larryv@alum.mit.edu>
 " License: GNU General Public License
 "
@@ -39,7 +39,7 @@ call extend(s:mapping_window, {
             \ '<C-W><C-I>': '<C-W><C-U>',
             \ '<C-W><C-J>': '<C-W><C-N>',
             \ '<C-W><C-K>': '<C-W><C-E>',
-            \ '<C-W><C-L>': '<C-W><C-I>',
+            \ '<C-W><C-L>': '<C-W><Leader>i',
             \ '<C-W><C-N>': '<C-W><C-K>',
             \ '<C-W><C-O>': '<C-W><C-Y>',
             \ '<C-W><C-P>': '<C-W><Leader>;',
