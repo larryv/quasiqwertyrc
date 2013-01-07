@@ -62,6 +62,7 @@ call extend(s:mapping_window, {
 
 " Lowercase
 call extend(s:mapping_window, {
+            \ '<C-W>;': '<C-W>o',
             \ '<C-W>d': '<C-W>s',
             \ '<C-W>f': '<C-W>t',
             \ '<C-W>gF': '<C-W>dT',
