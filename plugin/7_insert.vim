@@ -3,7 +3,6 @@
 "
 " Part 7 - Insert and Command-line mode.
 "
-" Last Change: 2012 Nov 30
 " Maintainer: Lawrence Velázquez <larryv@alum.mit.edu>
 " License: GNU General Public License
 "

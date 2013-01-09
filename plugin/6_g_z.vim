@@ -3,7 +3,6 @@
 "
 " Part 6 - Commands starting with 'g' or 'z'.
 "
-" Last Change: 2012 Nov 30
 " Maintainer: Lawrence Velázquez <larryv@alum.mit.edu>
 " License: GNU General Public License
 "

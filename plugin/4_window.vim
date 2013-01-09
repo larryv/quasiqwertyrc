@@ -3,7 +3,6 @@
 "
 " Part 4 - Window commands.
 "
-" Last Change: 2012 Dec 6
 " Maintainer: Lawrence Velázquez <larryv@alum.mit.edu>
 " License: GNU General Public License
 "
