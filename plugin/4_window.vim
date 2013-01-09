@@ -64,6 +64,7 @@ call extend(s:mapping_window, {
             \ '<C-W>;': '<C-W>o',
             \ '<C-W>d': '<C-W>s',
             \ '<C-W>f': '<C-W>t',
+            \ '<C-W>gf': '<C-W>dt',
             \ '<C-W>gF': '<C-W>dT',
             \ '<C-W>i': '<C-W>u',
             \ '<C-W>j': '<C-W>n',

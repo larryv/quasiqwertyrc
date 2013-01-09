@@ -53,6 +53,8 @@ call extend(s:mapping_g_z, {
             \ 'gp': 'd;',
             \ 'gr': 'dp',
             \ 'gs': 'dr',
+            \ 'gt': 'dg',
+            \ 'gT': 'dG',
             \ 'gu': 'dl',
             \ })
 
