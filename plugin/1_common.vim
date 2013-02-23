@@ -32,6 +32,7 @@ let s:mapping_common = {}
 
 " CTRL
 call extend(s:mapping_common, {
+            \ '<C-;>': '<C-O>',
             \ '<C-D>': '<C-S>',
             \ '<C-E>': '<C-F>',
             \ '<C-F>': '<C-T>',
