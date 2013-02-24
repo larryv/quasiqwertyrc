@@ -94,5 +94,9 @@ for lhs in s:mapping_no_visual
     execute "vunmap" lhs
 endfor
 
+" There is no 'q:' in operator-pending mode, so this just interferes
+" with commands like 'gqq'.
+ounmap qo
+
 unlet s:mapping_nov
 unlet s:mapping_no_visual
