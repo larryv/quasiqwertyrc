@@ -51,6 +51,7 @@ call extend(s:mapping_g_z, {
             \ 'gk': 'de',
             \ 'go': 'dy',
             \ 'gp': 'd;',
+            \ 'gqgq': 'dqdq',
             \ 'gqq': 'dqq',
             \ 'gr': 'dp',
             \ 'gs': 'dr',
