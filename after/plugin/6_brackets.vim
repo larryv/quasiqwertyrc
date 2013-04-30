@@ -1,7 +1,7 @@
 " ========================================================================
 " Vim global plugin for remapping commands from Colemak to QWERTY.
 "
-" Part 5 - Square bracket commands.
+" Part 6 - Square bracket commands.
 "
 " Maintainer: Lawrence Velázquez <larryv@alum.mit.edu>
 " License: GNU General Public License

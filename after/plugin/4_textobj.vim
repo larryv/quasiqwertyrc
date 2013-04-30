@@ -1,7 +1,7 @@
 " ========================================================================
 " Vim global plugin for remapping commands from Colemak to QWERTY.
 "
-" Part 8 - Clean up.
+" Part 4 - Text objects.
 "
 " Maintainer: Lawrence Velázquez <larryv@alum.mit.edu>
 " License: GNU General Public License
@@ -28,25 +28,18 @@ if exists("g:loaded_colemakdotvim")
     finish
 endif
 
-" Fix bug with 'Select All' menu item
-if exists("did_install_default_menus")
-    function <SID>SelectAll()
-        execute "normal! gg" . (&slm == "" ? "VG" : "gH\<C-O>G")
-    endfunction
+let s:mapping_textobj = {
+            \ 'ap': 'a;',
+            \ 'as': 'ar',
+            \ 'at': 'ag',
+            \ 'ip': 'u;',
+            \ 'is': 'ur',
+            \ 'it': 'ug',
+            \ }
 
-    noremenu <silent> &Edit.&Select\ All<Tab>ggVG :<C-U>call <SID>SelectAll()<CR>
-    inoremenu <silent> &Edit.&Select\ All<Tab>ggVG <C-O>:call <SID>SelectAll()<CR>
-    cnoremenu <silent> &Edit.&Select\ All<Tab>ggVG <C-U>call <SID>SelectAll()<CR>
+for [rhs, lhs] in items(s:mapping_textobj)
+    execute "noremap" lhs rhs
+    execute "nunmap" lhs
+endfor
 
-    noremenu <silent> PopUp.Select\ &All :<C-U>call <SID>SelectAll()<CR>
-    inoremenu <silent> PopUp.Select\ &All <C-O>:call <SID>SelectAll()<CR>
-    cnoremenu <silent> PopUp.Select\ &All <C-U>call <SID>SelectAll()<CR>
-endif
-
-" Clean up after ourselves
-unlet lhs rhs
-
-let &cpoptions = g:CDV_cpoptions_original
-unlet g:CDV_cpoptions_original
-
-let g:loaded_colemakdotvim = 1
+unlet s:mapping_textobj

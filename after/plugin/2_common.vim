@@ -1,7 +1,7 @@
 " ========================================================================
 " Vim global plugin for remapping commands from Colemak to QWERTY.
 "
-" Part 1 - All modes.
+" Part 2 - All modes.
 "
 " Maintainer: Lawrence Velázquez <larryv@alum.mit.edu>
 " License: GNU General Public License

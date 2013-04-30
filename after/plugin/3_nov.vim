@@ -1,7 +1,7 @@
 " ========================================================================
 " Vim global plugin for remapping commands from Colemak to QWERTY.
 "
-" Part 2 - Normal, Operator-pending, and Visual+Select modes.
+" Part 3 - Normal, Operator-pending, and Visual+Select modes.
 "
 " Maintainer: Lawrence Velázquez <larryv@alum.mit.edu>
 " License: GNU General Public License

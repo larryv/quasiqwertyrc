@@ -1,7 +1,7 @@
 " ========================================================================
 " Vim global plugin for remapping commands from Colemak to QWERTY.
 "
-" Part 7 - Insert and Command-line mode.
+" Part 9 - Clean up.
 "
 " Maintainer: Lawrence Velázquez <larryv@alum.mit.edu>
 " License: GNU General Public License
@@ -28,30 +28,25 @@ if exists("g:loaded_colemakdotvim")
     finish
 endif
 
-let s:mapping_insert = {
-            \ '<C-G><C-J>': '<C-D><C-N>',
-            \ '<C-G>j': '<C-D>n',
-            \ '<C-G><C-K>': '<C-D><C-E>',
-            \ '<C-G>k': '<C-D>e',
-            \ '<C-G>u': '<C-D>l',
-            \ '<C-R><C-R>': '<C-P><C-P>',
-            \ '<C-R><C-O>': '<C-P><C-Y>',
-            \ '<C-R><C-P>': '<C-P><Leader>;',
-            \ }
-for [rhs, lhs] in items(s:mapping_insert)
-    execute "inoremap" lhs rhs
-endfor
+" Fix bug with 'Select All' menu item
+if exists("did_install_default_menus")
+    function <SID>SelectAll()
+        execute "normal! gg" . (&slm == "" ? "VG" : "gH\<C-O>G")
+    endfunction
 
-let s:mapping_cmdline = {
-            \ '<C-R><C-F>': '<C-P><C-T>',
-            \ '<C-R><C-P>': '<C-P><C-;>',
-            \ '<C-R><C-R>': '<C-P><C-P>',
-            \ '<C-R><C-R><C-F>': '<C-P><C-P><C-T>',
-            \ '<C-R><C-R><C-P>': '<C-P><C-P><Leader>;',
-            \ }
-for [rhs, lhs] in items(s:mapping_cmdline)
-    execute "cnoremap" lhs rhs
-endfor
+    noremenu <silent> &Edit.&Select\ All<Tab>ggVG :<C-U>call <SID>SelectAll()<CR>
+    inoremenu <silent> &Edit.&Select\ All<Tab>ggVG <C-O>:call <SID>SelectAll()<CR>
+    cnoremenu <silent> &Edit.&Select\ All<Tab>ggVG <C-U>call <SID>SelectAll()<CR>
 
-unlet s:mapping_insert
-unlet s:mapping_cmdline
+    noremenu <silent> PopUp.Select\ &All :<C-U>call <SID>SelectAll()<CR>
+    inoremenu <silent> PopUp.Select\ &All <C-O>:call <SID>SelectAll()<CR>
+    cnoremenu <silent> PopUp.Select\ &All <C-U>call <SID>SelectAll()<CR>
+endif
+
+" Clean up after ourselves
+unlet lhs rhs
+
+let &cpoptions = g:CDV_cpoptions_original
+unlet g:CDV_cpoptions_original
+
+let g:loaded_colemakdotvim = 1
