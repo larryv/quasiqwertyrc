@@ -29,7 +29,7 @@ if exists("g:loaded_colemakdotvim")
 endif
 
 " Fix bug with 'Select All' menu item
-if exists("did_install_default_menus")
+if v:version < 704 && exists("did_install_default_menus")
     function <SID>SelectAll()
         execute "normal! gg" . (&slm == "" ? "VG" : "gH\<C-O>G")
     endfunction
