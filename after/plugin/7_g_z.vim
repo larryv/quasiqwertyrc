@@ -41,6 +41,8 @@ call extend(s:mapping_g_z, {
             \ 'gP': 'd:',
             \ 'gR': 'dP',
             \ 'gU': 'dL',
+            \ 'gUgU': 'dLdL',
+            \ 'gUU': 'dLL',
             \ 'gd': 'ds',
             \ 'ge': 'df',
             \ 'gf': 'dt',
@@ -56,6 +58,8 @@ call extend(s:mapping_g_z, {
             \ 'gt': 'dg',
             \ 'gT': 'dG',
             \ 'gu': 'dl',
+            \ 'gugu': 'dldl',
+            \ 'guu': 'dll',
             \ })
 
 " z
