@@ -73,7 +73,7 @@ call extend(s:mapping_nov, {
             \ 'n': 'k',
             \ 'o': 'y',
             \ 'p': ';',
-            \ 'q:': 'qo',
+            \ 'q:': 'qO',
             \ 'r': 'p',
             \ 's': 'r',
             \ 't': 'g',
@@ -96,7 +96,7 @@ endfor
 
 " There is no 'q:' in operator-pending mode, so this just interferes
 " with commands like 'gqq'.
-ounmap qo
+ounmap qO
 
 unlet s:mapping_nov
 unlet s:mapping_no_visual
