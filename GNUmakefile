@@ -7,7 +7,7 @@ colemakerel := .colemakerel
 # Template substitution helpers.
 
 nullstring :=
-space := $(nullstring) #EOL
+space := $(nullstring) # <--- the space is between the ) and the #
 
 encode = $(subst $(space),SPACE,$(1))
 decode = $(subst SPACE, ,$(1))
@@ -32,8 +32,7 @@ MODULES := $(patsubst %/,%,$(wildcard */))
 define create_module_FILES
 FILES := $$(shell find $(1) -type f ! \( -name module.mk -o \
                                          -name '*.sw?' -o \
-                                         -name '*~' \)\
-    )
+                                         -name '*~' \))
 FILES := $$(patsubst $(1)/%,%,$$(FILES))
 FILES := $$(patsubst _%,.%,$$(FILES))
 
@@ -85,7 +84,9 @@ uninstall:
 
 define create_module_targets
 .PHONY: $(1) $(1)-install $(1)-uninstall
+
 $(1) $(1)-install: $$($(1)_FILES)
+
 $(1)-uninstall:
 	-rm -R $$($(1)_FILES)
 endef
