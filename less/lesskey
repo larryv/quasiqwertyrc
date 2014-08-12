@@ -1,0 +1,19 @@
+# Custom lesskey bindings for Colemak
+
+#command
+
+n   forw-line
+e   back-line
+N   forw-line-force
+E   back-line-force
+
+s   forw-scroll
+l   back-scroll
+
+\el undo-hilite
+
+d   goto-line
+D   goto-end
+
+k   repeat-search
+K   reverse-search
