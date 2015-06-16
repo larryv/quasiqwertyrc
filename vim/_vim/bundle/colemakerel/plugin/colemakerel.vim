@@ -143,8 +143,9 @@ endfor
 
 " Approximate CTRL-L, sometimes.
 " TODO: Emulate in other modes and in other key chords.
+" NOTE: Don't bother doing this in Insert mode because it makes it
+"   a pain to type '\i' (e.g., LaTeX's '\item').
 nnoremap <Leader>l Oredraw!<CR>
-inoremap <Leader>l <C-\><C-N>
 
 " Replace CTRL-P with <Leader>p because there's no CTRL-; to remap.
 noremap! <Leader>p <C-P>
