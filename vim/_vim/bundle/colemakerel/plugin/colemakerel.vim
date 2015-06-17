@@ -38,7 +38,12 @@
 " ######################################################################
 
 
-if !has("langmap") || exists("g:loaded_colemakerel")
+" Patch 7.4.552 fixed a bug wherein langmap was incorrectly applied to
+" Insert mode mappings.
+if !has("langmap") ||
+            \ v:version < 704 ||
+            \ v:version == 704 && !has("patch552") ||
+            \ exists("g:loaded_colemakerel")
     finish
 endif
 
@@ -107,22 +112,13 @@ unlet s:langmap
 
 " The langmap option doesn't apply to insert and command-line modes, so
 " we use mappings instead. The only problem is that langmap DOES apply
-" to mappings in insert and command-line modes.
-"
-" For example, let's say one wants to make the chord consisting of CTRL
-" and the key under the right index finger (N on Colemak) behave like it
-" does on a QWERTY keyboard (J). One might think that mapping <C-N> to
-" <C-J> would do the trick, but one would be mistaken. Since langmap
-" kicks in during mappings, <C-N> is actually 'produced' by CTRL + the
-" key to the left of M.
-"
-" Thus, to address the desired physical keystrokes, it seems necessary
-" to target the end products of langmap, which means that we have to map
-" the langmap-produced keystrokes to themselves to get QWERTY behavior.
+" to mappings in Command-line mode. To get the desired behavior, we
+" (bizarrely) have to map keys to *themselves*. (Before patch 7.4.552,
+" this also applied to Insert mode mappings.)
 
 let s:lowercase = filter(copy(s:conversion), 'v:key =~ ''^\l$''')
 for [s:key, s:val] in items(s:lowercase)
-    execute printf('inoremap <C-G>%S <C-G>%S', s:key, s:key) | " CTRL-G combos
+    execute printf('inoremap <C-G>%S <C-G>%S', s:key, s:val) | " CTRL-G combos
     execute printf('cnoremap <C-\>%S <C-\>%S', s:key, s:key) | " CTRL-\ combos
 endfor
 
@@ -136,14 +132,16 @@ unlet s:ctrl['<C-i>']
 
 for [s:key, s:val] in items(s:ctrl)
     " Single-chord
-    execute printf('noremap! %S %S', s:key, s:key)
+    execute printf('inoremap %S %S', s:key, s:val)
+    execute printf('cnoremap %S %S', s:key, s:key)
     " CTRL-G combos
-    execute printf('inoremap <C-G>%S <C-G>%S', s:key, s:key)
+    execute printf('inoremap <C-G>%S <C-G>%S', s:key, s:val)
     " CTRL-R combos
     execute printf('cnoremap <C-R>%S <C-R>%S', s:key, s:key)
     execute printf('cnoremap <C-R><C-R>%S <C-R><C-R>%S', s:key, s:key)
     " CTRL-\ combos
-    execute printf('noremap! <C-\>%S <C-\>%S', s:key, s:key)
+    execute printf('inoremap <C-\>%S <C-\>%S', s:key, s:val)
+    execute printf('cnoremap <C-\>%S <C-\>%S', s:key, s:key)
 endfor
 
 " Approximate CTRL-L, sometimes.
