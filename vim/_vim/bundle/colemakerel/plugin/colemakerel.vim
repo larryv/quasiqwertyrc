@@ -49,7 +49,7 @@ set cpoptions&vim
 " ##### KEYSTROKE EMULATION ############################################
 
 " Colemak keystrokes are the keys; QWERTY ones are the values.
-let s:mapping = {
+let s:conversion = {
             \ 's': 'd', 'S': 'D',
             \ 'f': 'e', 'F': 'E',
             \ 't': 'f', 'T': 'F',
@@ -72,35 +72,35 @@ let s:mapping = {
 
 " ##### LANGMAP ########################################################
 
-let s:langmap_mapping = copy(s:mapping)
+let s:langmap = copy(s:conversion)
 
 " Escape semicolons for langmap.
-unlet s:langmap_mapping[';']
-unlet s:langmap_mapping['o']
-let s:langmap_mapping['\;'] = 'p'
-let s:langmap_mapping['o'] = '\;'
+unlet s:langmap[';']
+unlet s:langmap['o']
+let s:langmap['\;'] = 'p'
+let s:langmap['o'] = '\;'
 
 " Add C0 control characters.
 " TODO: Make CTRL-O (\u000F) do nothing.
-let s:langmap_mapping["\u0013"] = "\u0004"    " CTRL-S -> CTRL-D
-let s:langmap_mapping["\u0006"] = "\u0005"    " CTRL-F -> CTRL-E
-let s:langmap_mapping["\u0014"] = "\u0006"    " CTRL-T -> CTRL-F
-let s:langmap_mapping["\u0004"] = "\u0007"    " CTRL-D -> CTRL-G
-let s:langmap_mapping["\u0015"] = "\u0009"    " CTRL-U -> CTRL-I
-let s:langmap_mapping["\u000E"] = "\u000A"    " CTRL-N -> CTRL-J
-let s:langmap_mapping["\u0005"] = "\u000B"    " CTRL-E -> CTRL-K
-let s:langmap_mapping["\u000B"] = "\u000E"    " CTRL-K -> CTRL-N
-let s:langmap_mapping["\u0019"] = "\u000F"    " CTRL-Y -> CTRL-O
-let s:langmap_mapping["\u0010"] = "\u0012"    " CTRL-P -> CTRL-R
-let s:langmap_mapping["\u0012"] = "\u0013"    " CTRL-R -> CTRL-S
-let s:langmap_mapping["\u0007"] = "\u0014"    " CTRL-G -> CTRL-T
-let s:langmap_mapping["\u000C"] = "\u0015"    " CTRL-L -> CTRL-U
-let s:langmap_mapping["\u000A"] = "\u0019"    " CTRL-J -> CTRL-Y
+let s:langmap["\u0013"] = "\u0004"    " CTRL-S -> CTRL-D
+let s:langmap["\u0006"] = "\u0005"    " CTRL-F -> CTRL-E
+let s:langmap["\u0014"] = "\u0006"    " CTRL-T -> CTRL-F
+let s:langmap["\u0004"] = "\u0007"    " CTRL-D -> CTRL-G
+let s:langmap["\u0015"] = "\u0009"    " CTRL-U -> CTRL-I
+let s:langmap["\u000E"] = "\u000A"    " CTRL-N -> CTRL-J
+let s:langmap["\u0005"] = "\u000B"    " CTRL-E -> CTRL-K
+let s:langmap["\u000B"] = "\u000E"    " CTRL-K -> CTRL-N
+let s:langmap["\u0019"] = "\u000F"    " CTRL-Y -> CTRL-O
+let s:langmap["\u0010"] = "\u0012"    " CTRL-P -> CTRL-R
+let s:langmap["\u0012"] = "\u0013"    " CTRL-R -> CTRL-S
+let s:langmap["\u0007"] = "\u0014"    " CTRL-G -> CTRL-T
+let s:langmap["\u000C"] = "\u0015"    " CTRL-L -> CTRL-U
+let s:langmap["\u000A"] = "\u0019"    " CTRL-J -> CTRL-Y
 
 " Construct langmap-appropriate string from the dictionary.
-let &langmap = join(values(map(s:langmap_mapping, 'v:key . v:val')), ',')
+let &langmap = join(values(map(s:langmap, 'v:key . v:val')), ',')
 
-unlet s:langmap_mapping
+unlet s:langmap
 
 
 " ##### MAPPINGS #######################################################
@@ -120,25 +120,25 @@ unlet s:langmap_mapping
 " to target the end products of langmap, which means that we have to map
 " the langmap-produced keystrokes to themselves to get QWERTY behavior.
 
-let keys = filter(keys(s:mapping), 'v:val =~ ''^\l$''')
-for key in keys
-    execute printf('inoremap <C-G>%S <C-G>%S', key, key) | " CTRL-G combos
-    execute printf('cnoremap <C-\>%S <C-\>%S', key, key) | " CTRL-\ combos
+let s:keys = filter(keys(s:conversion), 'v:val =~ ''^\l$''')
+for s:key in s:keys
+    execute printf('inoremap <C-G>%S <C-G>%S', s:key, s:key) | " CTRL-G combos
+    execute printf('cnoremap <C-\>%S <C-\>%S', s:key, s:key) | " CTRL-\ combos
 endfor
 
-let ctrl_keys = map(keys, '"<C-" . v:val . ">"')
+let s:ctrl_keys = map(s:keys, '"<C-" . v:val . ">"')
 
 " Don't remap CTRL-I because doing so interferes with the Tab key.
-for ctrl_key in filter(ctrl_keys, 'v:val != ''<C-i>''')
+for s:key in filter(s:ctrl_keys, 'v:val != ''<C-i>''')
     " Single-chord
-    execute printf('noremap! %S %S', ctrl_key, ctrl_key)
+    execute printf('noremap! %S %S', s:key, s:key)
     " CTRL-G combos
-    execute printf('inoremap <C-G>%S <C-G>%S', ctrl_key, ctrl_key)
+    execute printf('inoremap <C-G>%S <C-G>%S', s:key, s:key)
     " CTRL-R combos
-    execute printf('cnoremap <C-R>%S <C-R>%S', ctrl_key, ctrl_key)
-    execute printf('cnoremap <C-R><C-R>%S <C-R><C-R>%S', ctrl_key, ctrl_key)
+    execute printf('cnoremap <C-R>%S <C-R>%S', s:key, s:key)
+    execute printf('cnoremap <C-R><C-R>%S <C-R><C-R>%S', s:key, s:key)
     " CTRL-\ combos
-    execute printf('noremap! <C-\>%S <C-\>%S', ctrl_key, ctrl_key)
+    execute printf('noremap! <C-\>%S <C-\>%S', s:key, s:key)
 endfor
 
 " Approximate CTRL-L, sometimes.
@@ -151,13 +151,13 @@ noremap! <Leader>p <C-P>
 noremap! <C-R><Leader>p <C-R><C-P>
 cnoremap <C-R><C-R><Leader>p <C-R><C-R><C-P>
 
-unlet keys key
-unlet ctrl_keys ctrl_key
+unlet s:keys s:key
+unlet s:ctrl_keys
 
 
 " ##### CLEANUP ########################################################
 
-unlet s:mapping
+unlet s:conversion
 
 let &cpoptions = s:cpo_original
 unlet s:cpo_original
