@@ -39,7 +39,8 @@
 
 
 " Patch 7.4.552 fixed a bug wherein langmap was incorrectly applied to
-" Insert mode mappings.
+" Insert mode mappings. I don't particularly want to maintain the hack
+" for old versions of Vim.
 if !has("langmap") ||
             \ v:version < 704 ||
             \ v:version == 704 && !has("patch552") ||
@@ -53,7 +54,7 @@ set cpoptions&vim
 
 " ##### KEYSTROKE EMULATION ############################################
 
-" Colemak keystrokes are the keys; QWERTY ones are the values.
+" Keys are Colemak; values are QWERTY.
 let s:conversion = {
             \ 's': 'd', 'S': 'D',
             \ 'f': 'e', 'F': 'E',
@@ -79,7 +80,7 @@ let s:conversion = {
 
 let s:langmap = copy(s:conversion)
 
-" Escape semicolons for langmap.
+" Langmap treats semicolons specially.
 unlet s:langmap[';']
 unlet s:langmap['o']
 let s:langmap['\;'] = 'p'
@@ -110,7 +111,7 @@ unlet s:langmap
 
 " ##### MAPPINGS #######################################################
 
-" The langmap option doesn't apply to insert and command-line modes, so
+" The langmap option doesn't apply to Insert and Command-line modes, so
 " we use mappings instead. The only problem is that langmap DOES apply
 " to mappings in Command-line mode. To get the desired behavior, we
 " (bizarrely) have to map keys to *themselves*. (Before patch 7.4.552,
