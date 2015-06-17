@@ -2,11 +2,11 @@
 " Vim global plugin for emulating QWERTY command keystrokes with
 " a Colemak keyboard layout.
 "
-" Last Change: 7 July 2014
-" Maintainer: Lawrence Velázquez <larryv@alum.mit.edu>
+" Last Change: 16 June 2015
+" Maintainer: Lawrence Velázquez <vq@larryv.me>
 " License: BSD 3-Clause License
 "
-" Copyright © 2014, Lawrence Velázquez
+" Copyright © 2014–2015 Lawrence Velázquez
 " All rights reserved.
 "
 " Redistribution and use in source and binary forms, with or without
