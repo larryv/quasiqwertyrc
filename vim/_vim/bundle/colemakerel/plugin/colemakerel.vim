@@ -120,16 +120,21 @@ unlet s:langmap
 " to target the end products of langmap, which means that we have to map
 " the langmap-produced keystrokes to themselves to get QWERTY behavior.
 
-let s:keys = filter(keys(s:conversion), 'v:val =~ ''^\l$''')
-for s:key in s:keys
+let s:lowercase = filter(copy(s:conversion), 'v:key =~ ''^\l$''')
+for [s:key, s:val] in items(s:lowercase)
     execute printf('inoremap <C-G>%S <C-G>%S', s:key, s:key) | " CTRL-G combos
     execute printf('cnoremap <C-\>%S <C-\>%S', s:key, s:key) | " CTRL-\ combos
 endfor
 
-let s:ctrl_keys = map(s:keys, '"<C-" . v:val . ">"')
+let s:ctrl = {}
+for [s:key, s:val] in items(s:lowercase)
+    let s:ctrl['<C-' . s:key . '>'] = '<C-' . s:val . '>'
+endfor
 
 " Don't remap CTRL-I because doing so interferes with the Tab key.
-for s:key in filter(s:ctrl_keys, 'v:val != ''<C-i>''')
+unlet s:ctrl['<C-i>']
+
+for [s:key, s:val] in items(s:ctrl)
     " Single-chord
     execute printf('noremap! %S %S', s:key, s:key)
     " CTRL-G combos
@@ -152,8 +157,10 @@ noremap! <Leader>p <C-P>
 noremap! <C-R><Leader>p <C-R><C-P>
 cnoremap <C-R><C-R><Leader>p <C-R><C-R><C-P>
 
-unlet s:keys s:key
-unlet s:ctrl_keys
+unlet s:lowercase
+unlet s:ctrl
+unlet s:key
+unlet s:val
 
 
 " ##### CLEANUP ########################################################
