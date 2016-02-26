@@ -2,7 +2,7 @@
 " Vim global plugin for emulating QWERTY command keystrokes with
 " a Colemak keyboard layout.
 "
-" Last Change: 25 February 2016
+" Last Change: 27 February 2016
 " Maintainer: Lawrence Velázquez <vq@larryv.me>
 " License: BSD 3-Clause License
 "
@@ -127,8 +127,15 @@ unlet s:langmap
 
 let s:lowercase = filter(copy(s:conversion), 'v:key =~ ''^\l$''')
 for [s:key, s:val] in items(s:lowercase)
-    execute printf('inoremap <C-D>%S <C-G>%S', s:val, s:val) | " CTRL-G combos
-    execute printf('cnoremap <C-\>%S <C-\>%S', s:val, s:val) | " CTRL-\ combos
+    " CTRL-G combos
+    if 0
+        execute printf('inoremap <C-G>%S <C-G>%S', s:val, s:val)
+    else
+        execute printf('inoremap <C-D>%S <C-G>%S', s:val, s:val)
+    endif
+
+    " CTRL-\ combos
+    execute printf('cnoremap <C-\>%S <C-\>%S', s:val, s:val)
 endfor
 
 let s:ctrl = {}
@@ -141,16 +148,34 @@ unlet s:ctrl['<C-i>']
 
 for [s:key, s:val] in items(s:ctrl)
     " Single-chord
-    execute printf('inoremap %S %S', s:key, s:val)
-    execute printf('cnoremap %S %S', s:key, s:val)
+    if 0
+        execute printf('noremap! %S %S', s:val, s:val)
+    else
+        execute printf('noremap! %S %S', s:key, s:val)
+    endif
+
     " CTRL-G combos
-    execute printf('inoremap <C-D>%S <C-G>%S', s:val, s:val)
+    if 0
+        execute printf('inoremap <C-G>%S <C-G>%S', s:val, s:val)
+    else
+        execute printf('inoremap <C-D>%S <C-G>%S', s:val, s:val)
+    endif
+
     " CTRL-R combos
-    execute printf('cnoremap <C-P>%S <C-R>%S', s:val, s:val)
-    execute printf('cnoremap <C-P><C-R>%S <C-R><C-R>%S', s:val, s:val)
+    if 0
+        execute printf('cnoremap <C-R>%S <C-R>%S', s:val, s:val)
+        execute printf('cnoremap <C-R><C-R>%S <C-R><C-R>%S', s:val, s:val)
+    else
+        execute printf('cnoremap <C-P>%S <C-R>%S', s:val, s:val)
+        execute printf('cnoremap <C-P><C-R>%S <C-R><C-R>%S', s:val, s:val)
+    endif
+
     " CTRL-\ combos
-    execute printf('inoremap <C-\>%S <C-\>%S', s:val, s:val)
-    execute printf('cnoremap <C-\>%S <C-\>%S', s:val, s:val)
+    if 0
+        execute printf('noremap! <C-\>%S <C-\>%S', s:val, s:val)
+    else
+        execute printf('noremap! <C-\>%S <C-\>%S', s:val, s:val)
+    endif
 endfor
 
 " Approximate CTRL-L, sometimes.
@@ -161,8 +186,13 @@ nnoremap <Leader>l Oredraw!<CR>
 
 " Replace CTRL-P with <Leader>p because there's no CTRL-; to remap.
 noremap! <Leader>p <C-P>
-noremap! <C-P><Leader>p <C-R><C-P>
-cnoremap <C-P><C-R><Leader>p <C-R><C-R><C-P>
+if 0
+    noremap! <C-R><Leader>p <C-R><C-P>
+    cnoremap <C-R><C-R><Leader>p <C-R><C-R><C-P>
+else
+    noremap! <C-P><Leader>p <C-R><C-P>
+    cnoremap <C-P><C-R><Leader>p <C-R><C-R><C-P>
+endif
 
 unlet s:lowercase
 unlet s:ctrl
