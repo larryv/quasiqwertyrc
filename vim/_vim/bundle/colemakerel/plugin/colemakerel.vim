@@ -2,11 +2,11 @@
 " Vim global plugin for emulating QWERTY command keystrokes with
 " a Colemak keyboard layout.
 "
-" Last Change: 16 June 2015
+" Last Change: 25 February 2016
 " Maintainer: Lawrence Velázquez <vq@larryv.me>
 " License: BSD 3-Clause License
 "
-" Copyright © 2014–2015 Lawrence Velázquez
+" Copyright © 2014–2016 Lawrence Velázquez
 " All rights reserved.
 "
 " Redistribution and use in source and binary forms, with or without
@@ -38,12 +38,18 @@
 " ######################################################################
 
 
+" Emulate the improved has() introduced by 7.4.237.
+function s:has_patch(patchstr)
+    let [major, minor, patch] = split(a:patchstr, '\.')
+    let vers = major * 100 + minor
+    return v:version > vers || v:version == vers && has('patch' . patch)
+endfunction
+
 " Patch 7.4.552 fixed a bug wherein langmap was incorrectly applied to
 " Insert mode mappings. I don't particularly want to maintain the hack
 " for old versions of Vim.
 if !has("langmap") ||
-            \ v:version < 704 ||
-            \ v:version == 704 && !has("patch552") ||
+            \ !s:has_patch('7.4.552') ||
             \ exists("g:loaded_colemakerel")
     finish
 endif
@@ -164,6 +170,7 @@ unlet s:val
 
 " ##### CLEANUP ########################################################
 
+delfunction s:has_patch
 unlet s:conversion
 
 let &cpoptions = s:cpo_original
