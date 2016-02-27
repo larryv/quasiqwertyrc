@@ -45,9 +45,9 @@ function s:has_patch(patchstr)
     return v:version > vers || v:version == vers && has('patch' . patch)
 endfunction
 
-" Patch 7.4.552 fixed a bug wherein langmap was incorrectly applied to
-" Insert mode mappings. I don't particularly want to maintain the hack
-" for old versions of Vim.
+" Patch 7.4.552 broke the interaction between langmap and
+" mappings in Insert mode. I'm not currently able to test
+" a langmap-enabled Vim lacking this patch, so require it for now.
 if !has("langmap") ||
             \ !s:has_patch('7.4.552') ||
             \ exists("g:loaded_colemakerel")
@@ -117,15 +117,15 @@ unlet s:langmap
 
 " ##### MAPPINGS #######################################################
 
-" The langmap option doesn't apply to Insert and Command-line modes, so
-" we use mappings instead. The only problem is that langmap DOES apply
-" to mappings in Command-line mode. To get the desired behavior, we
-" (bizarrely) have to map keys to *themselves*. (Before patch 7.4.552,
-" this also applied to Insert mode mappings.)
+" The langmap option doesn't apply in Insert mode, but
+" it should apply to the left-hand side of mappings in that mode, so
+" mapping the desired target keys to themselves ought to work. And it
+" almost does, except that Vim erroneously does NOT apply langmap to the
+" first character of the left-hand side, thanks to patch 7.4.552.
 
 let s:lowercase = filter(copy(s:conversion), 'v:key =~ ''^\l$''')
 for [s:key, s:val] in items(s:lowercase)
-    execute printf('inoremap <C-G>%S <C-G>%S', s:key, s:val) | " CTRL-G combos
+    execute printf('inoremap <C-D>%S <C-G>%S', s:val, s:val) | " CTRL-G combos
     execute printf('cnoremap <C-\>%S <C-\>%S', s:key, s:key) | " CTRL-\ combos
 endfor
 
@@ -142,12 +142,12 @@ for [s:key, s:val] in items(s:ctrl)
     execute printf('inoremap %S %S', s:key, s:val)
     execute printf('cnoremap %S %S', s:key, s:key)
     " CTRL-G combos
-    execute printf('inoremap <C-G>%S <C-G>%S', s:key, s:val)
+    execute printf('inoremap <C-D>%S <C-G>%S', s:val, s:val)
     " CTRL-R combos
     execute printf('cnoremap <C-R>%S <C-R>%S', s:key, s:key)
     execute printf('cnoremap <C-R><C-R>%S <C-R><C-R>%S', s:key, s:key)
     " CTRL-\ combos
-    execute printf('inoremap <C-\>%S <C-\>%S', s:key, s:val)
+    execute printf('inoremap <C-\>%S <C-\>%S', s:val, s:val)
     execute printf('cnoremap <C-\>%S <C-\>%S', s:key, s:key)
 endfor
 
@@ -159,7 +159,8 @@ nnoremap <Leader>l Oredraw!<CR>
 
 " Replace CTRL-P with <Leader>p because there's no CTRL-; to remap.
 noremap! <Leader>p <C-P>
-noremap! <C-R><Leader>p <C-R><C-P>
+inoremap <C-P><Leader>p <C-R><C-P>
+cnoremap <C-R><Leader>p <C-R><C-P>
 cnoremap <C-R><C-R><Leader>p <C-R><C-R><C-P>
 
 unlet s:lowercase
