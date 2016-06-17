@@ -1,3 +1,5 @@
+__header__
+
 #
 # Pokery-diggery for using Colemak on a QWERTY keyboard.
 #
@@ -7,10 +9,10 @@
 [[ -o INTERACTIVE ]] || return 0
 
 # Configure less(1).
-export LESSKEY=__PREFIX__/__COLEMAKEREL__/less
+export LESSKEY=__prefix__/__colemakerel__/less
 
 # Configure readline(3).
-export INPUTRC=__PREFIX__/__COLEMAKEREL__/inputrc
+export INPUTRC=__prefix__/__colemakerel__/inputrc
 
 
 #
@@ -77,4 +79,4 @@ bindkey '\er' spell-word                    # ESC-s
 bindkey '^Xl' undo                          # ^Xu
 bindkey '^X^L' undo                         # ^X^U
 
-# vi: set filetype=zsh:
+# vim: set filetype=zsh:

@@ -1,3 +1,5 @@
+__header__
+
 # -----
 # Colemak keybindings for readline
 # -----
@@ -53,3 +55,5 @@ $if mode=emacs
 #"\C-xd":    glob-list-expansions
 
 $endif
+
+m4_ifelse(« vim: set filetype=readline:»)m4_dnl
