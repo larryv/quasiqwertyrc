@@ -37,6 +37,10 @@ SUBSTITUTIONS += $(call encode,s|__COLEMAKEREL__|$(colemakerel)|g)
 
 VPATH := $(patsubst %/,%,$(wildcard */))
 
+.PHONY: install uninstall
+install: $(addsuffix -install,$(VPATH))
+uninstall: $(addsuffix -uninstall,$(VPATH))
+
 define load_module
 $(1)_FILES := $$(shell find $(1) -type f ! \( -name module.mk -o \
                                               -name '*.sw?' -o \
@@ -68,16 +72,3 @@ $(prefix)/% : $$(REPLACELEADINGDOTWITHUNDERSCORE)
 	@printf $(HEADER) > "$@"
 	@sed -E $(SED_SCRIPTS) "$<" >> "$@"
 	@printf "Wrote $@\n" >&2
-
-
-# Install and uninstall all modules.
-
-ALL_FILES := $(foreach module,$(VPATH),$($(module)_FILES))
-
-.DEFAULT_GOAL := install
-.PHONY: install
-install: $(ALL_FILES)
-
-.PHONY: uninstall
-uninstall:
-	-rm -R $(ALL_FILES)
