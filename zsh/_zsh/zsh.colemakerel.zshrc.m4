@@ -1,23 +1,16 @@
 __header__
 
-#
-# Pokery-diggery for using Colemak on a QWERTY keyboard.
-#
+
+# It's safe to assume that anyone invoking zsh as a nonlogin shell
+# wouldn't appreciate having their key bindings overridden.
+if [[ ! -o LOGIN ]]
+then
+    return 0
+fi
 
 
-# None of this is really applicable to a non-interactive shell.
-[[ -o INTERACTIVE ]] || return 0
-
-# Configure less(1).
-export LESSKEY=__prefix__/__colemakerel__/less
-
-# Configure readline(3).
-export INPUTRC=__prefix__/__colemakerel__/inputrc
-
-
-#
-# Configure ZLE.
-#
+# ZLE configuration
+# -----
 
 bindkey -N emacs_colemak emacs
 bindkey -A emacs_colemak main
