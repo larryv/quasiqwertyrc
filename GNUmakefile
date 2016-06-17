@@ -35,7 +35,7 @@ SUBSTITUTIONS += $(call encode,s|__COLEMAKEREL__|$(colemakerel)|g)
 # - "make install": install all files
 # - "make uninstall": delete all files
 
-VPATH := $(patsubst %/,%,$(wildcard */))
+VPATH := less lynx readline tmux vim zsh
 
 .PHONY: install uninstall
 install: $(addsuffix -install,$(VPATH))
