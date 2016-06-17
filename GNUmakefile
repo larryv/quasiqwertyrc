@@ -35,7 +35,7 @@ SUBSTITUTIONS += $(call encode,s|__COLEMAKEREL__|$(colemakerel)|g)
 # - "make install": install all files
 # - "make uninstall": delete all files
 
-MODULES := $(patsubst %/,%,$(wildcard */))
+VPATH := $(patsubst %/,%,$(wildcard */))
 
 define load_module
 $(1)_FILES := $$(shell find $(1) -type f ! \( -name module.mk -o \
@@ -51,18 +51,16 @@ $(1)-uninstall:
 	-rm -R $$($(1)_FILES)
 endef
 
-$(foreach module,$(MODULES),$(eval $(call load_module,$(module))))
+$(foreach module,$(VPATH),$(eval $(call load_module,$(module))))
 
 
 # Module-specific settings.
 
-include $(addsuffix /module.mk,$(MODULES))
+include $(addsuffix /module.mk,$(VPATH))
 
 
 # The default rule does substitutions on the source templates and writes
 # them to the output files.
-
-VPATH := $(MODULES)
 
 SED_SCRIPTS := $(foreach sub,$(SUBSTITUTIONS),-e '$(call decode,$(sub))')
 
@@ -76,7 +74,7 @@ $(prefix)/% : $$(REPLACELEADINGDOTWITHUNDERSCORE)
 
 # Install and uninstall all modules.
 
-ALL_FILES := $(foreach module,$(MODULES),$($(module)_FILES))
+ALL_FILES := $(foreach module,$(VPATH),$($(module)_FILES))
 
 .DEFAULT_GOAL := install
 .PHONY: install
