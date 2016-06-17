@@ -53,10 +53,8 @@ endef
 
 $(foreach module,$(VPATH),$(eval $(call load_module,$(module))))
 
-
-# Module-specific settings.
-
-include $(addsuffix /module.mk,$(VPATH))
+# Modules can use submakefiles to define their own macros and whatnot.
+sinclude $(addsuffix /module.mk,$(VPATH))
 
 
 # The default rule does substitutions on the source templates and writes
