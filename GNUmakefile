@@ -3,6 +3,12 @@
 prefix := $(wildcard ~)
 colemakerel := .colemakerel
 
+# Flotsam and jetsam.
+SHELL := /bin/sh
+.DELETE_ON_ERROR:
+.NOTPARALLEL:       # mkdir -p may cause race conditions
+.SECONDEXPANSION:
+.SUFFIXES:
 
 # Template substitution helpers.
 
@@ -54,11 +60,6 @@ VPATH := $(MODULES)
 
 SED_SCRIPTS := $(foreach sub,$(SUBSTITUTIONS),-e '$(call decode,$(sub))')
 
-.DELETE_ON_ERROR:
-# mkdir -p may cause race conditions
-.NOTPARALLEL:
-.SECONDEXPANSION:
-
 REPLACELEADINGDOTWITHUNDERSCORE = $(patsubst .%,_%,$*)
 $(prefix)/% : $$(REPLACELEADINGDOTWITHUNDERSCORE)
 	@mkdir -p -- "$(dir $@)"
@@ -92,10 +93,3 @@ $(1)-uninstall:
 endef
 
 $(foreach module,$(MODULES),$(eval $(call create_module_targets,$(module))))
-
-
-# Flotsam and jetsam
-
-SHELL := /bin/sh
-
-.SUFFIXES:
