@@ -45,9 +45,8 @@ define load_module
 $(1)_FILES := $$(shell find $(1) -type f ! \( -name module.mk -o \
                                               -name '*.sw?' -o \
                                               -name '*~' \))
-$(1)_FILES := $$(patsubst $(1)/%,%,$$($(1)_FILES))
-$(1)_FILES := $$(patsubst _%,.%,$$($(1)_FILES))
-$(1)_FILES := $$(addprefix $$(prefix)/,$$($(1)_FILES))
+$(1)_FILES := $$(subst /_,/.,$$($(1)_FILES))
+$(1)_FILES := $$(patsubst $(1)%,$$(prefix)%,$$($(1)_FILES))
 
 .PHONY: $(1) $(1)-install $(1)-uninstall
 $(1) $(1)-install: $$$$($(1)_FILES)
@@ -66,7 +65,7 @@ sinclude $(addsuffix /module.mk,$(VPATH))
 
 SED_SCRIPTS := $(foreach sub,$(SUBSTITUTIONS),-e '$(call decode,$(sub))')
 
-REPLACELEADINGDOTWITHUNDERSCORE = $(patsubst .%,_%,$*)
+REPLACELEADINGDOTWITHUNDERSCORE = $(patsubst .%,_%,$(subst /.,/_,$*))
 $(prefix)/% : $$(REPLACELEADINGDOTWITHUNDERSCORE)
 	@mkdir -p -- "$(dir $@)"
 	@printf $(HEADER) > "$@"
