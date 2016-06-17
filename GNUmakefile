@@ -1,3 +1,7 @@
+ifeq ($(or $(VERBOSE),0),0)
+    quiet := @
+endif
+
 # Defaults.
 
 prefix := $(wildcard ~)
@@ -51,7 +55,7 @@ $(1)_FILES := $$(patsubst $(1)%,$$(prefix)%,$$($(1)_FILES))
 .PHONY: $(1) $(1)-install $(1)-uninstall
 $(1) $(1)-install: $$$$($(1)_FILES)
 $(1)-uninstall:
-	-rm -R $$($(1)_FILES)
+	rm -fR $$($(1)_FILES)
 endef
 
 $(foreach module,$(VPATH),$(eval $(call load_module,$(module))))
@@ -67,7 +71,7 @@ SED_SCRIPTS := $(foreach sub,$(SUBSTITUTIONS),-e '$(call decode,$(sub))')
 
 REPLACELEADINGDOTWITHUNDERSCORE = $(patsubst .%,_%,$(subst /.,/_,$*))
 $(prefix)/% : $$(REPLACELEADINGDOTWITHUNDERSCORE)
-	@mkdir -p -- "$(dir $@)"
-	@printf $(HEADER) > "$@"
-	@sed -E $(SED_SCRIPTS) "$<" >> "$@"
-	@printf "Wrote $@\n" >&2
+	$(quiet)mkdir -p -- "$$(dirname '$@')"
+	$(quiet)printf $(HEADER) > '$@'
+	$(quiet)sed -E $(SED_SCRIPTS) '$<' >> '$@'
+	@printf '$(if $(quiet),Wrote %s)\n' '$@' >&2
