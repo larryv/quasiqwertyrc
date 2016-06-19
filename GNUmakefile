@@ -4,8 +4,7 @@ endif
 
 # Template parameters.
 prefix := $(wildcard ~)
-colemakerel := .colemakerel
-macros := prefix colemakerel
+macros := prefix
 
 # Flotsam and jetsam.
 SHELL := /bin/sh

@@ -6,7 +6,7 @@ __header__
 
 if [[ -o LOGIN ]]
 then
-    export LESSKEY='__prefix__/__colemakerel__/less'
+    export LESSKEY='__prefix__/.less.colemakerel'
 fi
 
 # vim: set filetype=zsh:

@@ -6,7 +6,7 @@ __header__
 
 if [[ -o LOGIN ]]
 then
-    export INPUTRC='__prefix__/__colemakerel__/inputrc'
+    export INPUTRC='__prefix__/.inputrc.colemakerel'
 fi
 
 # vim: set filetype=zsh:
