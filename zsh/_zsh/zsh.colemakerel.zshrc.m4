@@ -1,10 +1,6 @@
 __header__
 
-
-# It's safe to assume that anyone invoking zsh as a nonlogin shell
-# wouldn't appreciate having their key bindings overridden.
 [[ -o LOGIN ]] || return 0
-
 
 # ZLE configuration
 # -----
