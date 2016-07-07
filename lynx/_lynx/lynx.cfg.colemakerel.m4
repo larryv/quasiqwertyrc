@@ -37,4 +37,4 @@ KEYMAP:^L:NEXT_DOC      # ^U
 KEYMAP:O:COMMAND        # :
 KEYMAP:o:TRACE_LOG      # ;
 
-m4_ifelse(« vim: set filetype=lynx:»)m4_dnl
+# vim: set filetype=lynx:

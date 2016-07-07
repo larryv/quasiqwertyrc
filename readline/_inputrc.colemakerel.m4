@@ -56,4 +56,4 @@ $if mode=emacs
 
 $endif
 
-m4_ifelse(« vim: set filetype=readline:»)m4_dnl
+# vim: set filetype=readline:
