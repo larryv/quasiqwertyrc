@@ -35,4 +35,5 @@ Turns out that a few things don't work.
 - CTRL + the key to the left of the apostrophe key still produces
   CTRL-O.
 
-m4_ifelse(« vim: set filetype=:»)m4_dnl
+m4_divert(«-1»)
+vim: set filetype=:

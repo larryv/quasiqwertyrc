@@ -217,4 +217,5 @@ let did_install_syntax_menu = 1
 
 let g:loaded_colemakerel = 1
 
-m4_ifelse(« vim: set filetype=vim:»)m4_dnl
+m4_divert(«-1»)
+vim: set filetype=vim:

@@ -99,4 +99,5 @@ unbind-key -t vi-choice k
 unbind-key -t vi-choice C-e
 unbind-key -t vi-choice C-y
 
-m4_ifelse(« vim: set filetype=tmux:»)m4_dnl
+m4_divert(«-1»)
+vim: set filetype=tmux:
