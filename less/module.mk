@@ -1,5 +1,5 @@
-less_FILES := $(filter-out %lesskey,$(less_FILES))
-less_FILES += $(prefix)/.less.colemakerel
+less_files := $(filter-out %lesskey,$(less_files))
+less_files += $(prefix)/.less.colemakerel
 
 $(prefix)/.less.colemakerel: lesskey
 	$(quiet)mkdir -p -- "$$(dirname '$@')"

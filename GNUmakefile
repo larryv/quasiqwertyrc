@@ -28,16 +28,16 @@ install: $(addsuffix -install,$(VPATH))
 uninstall: $(addsuffix -uninstall,$(VPATH))
 
 define load_module
-$(1)_FILES := $$(shell find $(1) -type f ! \( -name module.mk -o \
+$(1)_files := $$(shell find $(1) -type f ! \( -name module.mk -o \
                                               -name '*.sw?' -o \
                                               -name '*~' \))
-$(1)_FILES := $$(subst /_,/.,$$($(1)_FILES))
-$(1)_FILES := $$(patsubst $(1)%.m4,$$(prefix)%,$$($(1)_FILES))
+$(1)_files := $$(subst /_,/.,$$($(1)_files))
+$(1)_files := $$(patsubst $(1)%.m4,$$(prefix)%,$$($(1)_files))
 
 .PHONY: $(1) $(1)-install $(1)-uninstall
-$(1) $(1)-install: $$$$($(1)_FILES)
+$(1) $(1)-install: $$$$($(1)_files)
 $(1)-uninstall:
-	rm -fR $$($(1)_FILES)
+	rm -fR $$($(1)_files)
 endef
 
 $(foreach module,$(VPATH),$(eval $(call load_module,$(module))))
