@@ -3,10 +3,7 @@ __header__
 
 # It's safe to assume that anyone invoking zsh as a nonlogin shell
 # wouldn't appreciate having their key bindings overridden.
-if [[ ! -o LOGIN ]]
-then
-    return 0
-fi
+[[ -o LOGIN ]] || return 0
 
 
 # ZLE configuration

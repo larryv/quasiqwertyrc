@@ -1,12 +1,11 @@
 __header__
 
+[[ -o LOGIN ]] || return 0
+
 # The zsh documentation discourages setting environment variables in
 # .zprofile or .zlogin (http://zsh.sourceforge.net/Intro/intro_3.html),
 # so do it here.
 
-if [[ -o LOGIN ]]
-then
-    export INPUTRC='__prefix__/.inputrc.colemakerel'
-fi
+export INPUTRC='__prefix__/.inputrc.colemakerel'
 
 # vim: set filetype=zsh:
