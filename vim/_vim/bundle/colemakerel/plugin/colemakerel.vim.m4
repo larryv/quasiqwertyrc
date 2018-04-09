@@ -136,6 +136,9 @@ for [s:key, s:val] in items(s:lowercase)
         execute printf('inoremap <C-D>%S <C-G>%S', s:val, s:val)
     endif
 
+    " CTRL-X combos
+    inoremap <C-X>s <C-X>s
+
     " CTRL-\ combos
     execute printf('cnoremap <C-\>%S <C-\>%S', s:val, s:val)
 endfor
@@ -171,6 +174,9 @@ for [s:key, s:val] in items(s:ctrl)
         execute printf('cnoremap <C-P>%S <C-R>%S', s:val, s:val)
         execute printf('cnoremap <C-P><C-R>%S <C-R><C-R>%S', s:val, s:val)
     endif
+
+    " CTRL-X combos
+    execute printf('inoremap <C-X>%S <C-X>%S', s:val, s:val)
 
     " CTRL-\ combos
     if 0
