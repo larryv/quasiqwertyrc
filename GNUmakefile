@@ -7,10 +7,6 @@
 # External programs.
 SHELL := /bin/sh
 
-ifeq ($(or $(VERBOSE),0),0)
-    quiet := @
-endif
-
 # Template parameters.
 prefix := $(wildcard ~)
 macros := prefix
@@ -46,6 +42,5 @@ defines := $(foreach macro,$(macros),-D __$(macro)__='$($(macro))')
 
 src = $(patsubst .%,_%,$(subst /.,/_,$*)).m4
 $(prefix)/% : $$(src) common.m4
-	$(quiet)mkdir -p -- "$$(dirname '$@')"
-	$(quiet)'$(or $(M4),m4)' -P $(defines) common.m4 '$<' > '$@'
-	@printf '$(if $(quiet),Wrote %s)\n' '$@' >&2
+	mkdir -p -- "$$(dirname '$@')"
+	'$(or $(M4),m4)' -P $(defines) common.m4 '$<' >'$@'
