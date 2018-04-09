@@ -6,6 +6,7 @@
 
 # External programs.
 SHELL := /bin/sh
+M4 := m4
 
 # Template parameters.
 prefix := $(wildcard ~)
@@ -43,4 +44,4 @@ defines := $(foreach macro,$(macros),-D __$(macro)__='$($(macro))')
 src = $(patsubst .%,_%,$(subst /.,/_,$*)).m4
 $(prefix)/% : $$(src) common.m4
 	mkdir -p -- "$$(dirname '$@')"
-	'$(or $(M4),m4)' -P $(defines) common.m4 '$<' >'$@'
+	$(M4) -P $(defines) common.m4 '$<' >'$@'
