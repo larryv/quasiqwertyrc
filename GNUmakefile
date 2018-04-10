@@ -28,12 +28,6 @@ install: $(addsuffix -install,$(VPATH))
 uninstall: $(addsuffix -uninstall,$(VPATH))
 
 define load_module
-$(1)_files := $$(shell find $(1) -type f ! \( -name module.mk -o \
-                                              -name '*.sw?' -o \
-                                              -name '*~' \))
-$(1)_files := $$(subst /_,/.,$$($(1)_files))
-$(1)_files := $$(patsubst $(1)%.m4,$$(prefix)%,$$($(1)_files))
-
 .PHONY: $(1) $(1)-install $(1)-uninstall
 $(1) $(1)-install: $$$$($(1)_files)
 $(1)-uninstall:
@@ -44,7 +38,7 @@ $(foreach module,$(VPATH),$(eval $(call load_module,$(module))))
 
 # Modules can use submakefiles to define their own macros or otherwise
 # alter the install process.
-sinclude $(addsuffix /module.mk,$(VPATH))
+include $(addsuffix /module.mk,$(VPATH))
 
 # Generate the command-line macro definitions.
 defines := $(foreach macro,$(macros),-D __$(macro)__='$($(macro))')
