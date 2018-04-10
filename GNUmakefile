@@ -8,8 +8,15 @@
 SHELL := /bin/sh
 M4 := m4
 
+# Quote strings for injection between POSIX shell single quotes
+# (http://www.etalabs.net/sh_tricks.html, § "Shell-quoting arbitrary
+# strings"). Variables should be passed using the "value" function to
+# prevent '$' characters from being evaluated.
+shellquote = $(subst ','\'',$(1))
+
 # Template parameters.
 prefix := $(wildcard ~)
+quoted_prefix := $(call shellquote,$(value prefix))
 macros := prefix
 
 # The repository's child directories are "modules", containing "slices"
@@ -24,7 +31,7 @@ installpath = $(foreach f,$(subst /_,/.,$(1)),$(patsubst $(firstword $(subst /, 
 # it in a variable to preserve the trailing newline, or else the
 # repetition erroneously produces one very long command.
 define installcmd
-cp $(1) '$(prefix)/$(call installpath,$(1))'
+cp $(1) '$(quoted_prefix)/$(call installpath,$(1))'
 
 endef
 
@@ -54,11 +61,11 @@ _$(1)-clean:
 	$$(if $$($(1)_generated_files),$$(RM) $$($(1)_generated_files))
 # TODO: Remove unnecessary directories from installdirs.
 _$(1)-installdirs:
-	$$(if $$($(1)_dirs),cd -- '$$(prefix)' && mkdir -p $$($(1)_dirs))
+	$$(if $$($(1)_dirs),cd -- '$$(quoted_prefix)' && mkdir -p $$($(1)_dirs))
 _$(1)-install: $(1) $(1)-installdirs
 	$$(foreach f,$$($(1)_files),$$(call installcmd,$$(f)))
 _$(1)-uninstall:
-	cd -- '$$(prefix)' && $$(RM) $$(call installpath,$$($(1)_files))
+	cd -- '$$(quoted_prefix)' && $$(RM) $$(call installpath,$$($(1)_files))
 endef
 
 $(foreach module,$(MODULES),$(eval $(call load_module,$(module))))
