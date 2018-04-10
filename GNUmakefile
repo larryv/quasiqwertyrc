@@ -1,3 +1,12 @@
+# Flotsam and jetsam.
+.DELETE_ON_ERROR:
+.NOTPARALLEL:           # mkdir -p may cause race conditions.
+.SECONDEXPANSION:
+.SUFFIXES:
+
+# External programs.
+SHELL := /bin/sh
+
 ifeq ($(or $(VERBOSE),0),0)
     quiet := @
 endif
@@ -6,22 +15,15 @@ endif
 prefix := $(wildcard ~)
 macros := prefix
 
-# Flotsam and jetsam.
-SHELL := /bin/sh
-.DELETE_ON_ERROR:
-.NOTPARALLEL:           # mkdir -p may cause race conditions.
-.SECONDEXPANSION:
-.SUFFIXES:
-
-# Treat each child directory listed in VPATH as a "module". Generate
-# per-module targets and prerequisites based on directory contents.
-# For example:
-# - "make vim" / "make vim-install": install Vim-related files
-# - "make vim-uninstall": delete Vim-related files
-# - "make install": install all files
-# - "make uninstall": delete all files
-
+# The repository's child directories are "modules", containing "slices"
+# of the final directory tree. These are "layered" during installation.
 VPATH := less lynx readline tmux vim zsh
+
+# Generate per-module targets and prerequisites. For example:
+#   - "make vim" / "make vim-install": install Vim-related files
+#   - "make vim-uninstall": uninstall Vim-related files
+#   - "make install": install all files
+#   - "make uninstall": uninstall all files
 
 .PHONY: install uninstall
 install: $(addsuffix -install,$(VPATH))
@@ -36,8 +38,7 @@ endef
 
 $(foreach module,$(VPATH),$(eval $(call load_module,$(module))))
 
-# Modules can use submakefiles to define their own macros or otherwise
-# alter the install process.
+# Let modules alter the install process.
 include $(addsuffix /module.mk,$(VPATH))
 
 # Generate the command-line macro definitions.
