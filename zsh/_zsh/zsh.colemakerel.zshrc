@@ -1,5 +1,3 @@
-__header__
-
 [[ -o LOGIN ]] || return 0
 
 # ZLE configuration

@@ -1,5 +1,3 @@
-__header__
-
 [[ -o LOGIN ]] || return 0
 
 # The zsh documentation discourages setting environment variables from
