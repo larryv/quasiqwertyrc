@@ -24,7 +24,7 @@ endfunction
 if !has("langmap") ||
             \ !s:has_patch('7.4.552') ||
             \ !s:has_patch('7.4.773') ||
-            \ exists("g:loaded_colemakerel")
+            \ exists("g:loaded_colemakrc")
     finish
 endif
 
@@ -192,4 +192,4 @@ unlet s:cpo_original
 let did_install_default_menus = 1
 let did_install_syntax_menu = 1
 
-let g:loaded_colemakerel = 1
+let g:loaded_colemakrc = 1

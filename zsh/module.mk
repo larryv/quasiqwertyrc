@@ -1,1 +1,1 @@
-zsh_files := zsh/_zsh/zsh.colemakerel.zshrc
+zsh_files := zsh/_zsh/zsh.colemakrc.zshrc

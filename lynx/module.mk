@@ -1,1 +1,1 @@
-lynx_files := lynx/_lynx.cfg.colemakerel
+lynx_files := lynx/_lynx.cfg.colemakrc
