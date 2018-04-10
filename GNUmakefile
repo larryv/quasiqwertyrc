@@ -51,7 +51,7 @@ $(1)-uninstall: _$(1)-uninstall
 # Helper targets that do the real work.
 .PHONY: $$(addprefix _$(1)-,clean installdirs install uninstall)
 _$(1)-clean:
-	$$(RM) $$($(1)_files)
+	$$(if $$($(1)_generated_files),$$(RM) $$($(1)_generated_files))
 # TODO: Remove unnecessary directories from installdirs.
 _$(1)-installdirs:
 	$$(if $$($(1)_dirs),cd -- '$$(prefix)' && mkdir -p $$($(1)_dirs))

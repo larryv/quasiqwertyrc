@@ -1,5 +1,3 @@
-__header__
-
 # -----
 # Colemak keybindings for tmux
 # -----
@@ -99,5 +97,4 @@ unbind-key -t vi-choice k
 unbind-key -t vi-choice C-e
 unbind-key -t vi-choice C-y
 
-m4_divert(«-1»)
-vim: set filetype=tmux:
+# vim: set filetype=tmux:

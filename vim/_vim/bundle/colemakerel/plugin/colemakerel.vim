@@ -1,5 +1,3 @@
-__header__(«" »)
-
 " ######################################################################
 " Vim global plugin for emulating QWERTY command keystrokes with
 " a Colemak keyboard layout.
@@ -222,6 +220,3 @@ let did_install_default_menus = 1
 let did_install_syntax_menu = 1
 
 let g:loaded_colemakerel = 1
-
-m4_divert(«-1»)
-vim: set filetype=vim:
