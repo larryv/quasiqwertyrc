@@ -6,6 +6,6 @@ __header__
 # .zprofile or .zlogin (http://zsh.sourceforge.net/Intro/intro_3.html),
 # so do it here.
 
-export LESSKEY='__prefix__/.less.colemakerel'
+export LESSKEY='printenv(«quoted_prefix»)/.less.colemakerel'
 
 # vim: set filetype=zsh:

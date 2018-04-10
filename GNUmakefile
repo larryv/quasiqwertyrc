@@ -4,6 +4,9 @@
 .SECONDEXPANSION:
 .SUFFIXES:
 
+# Root of the destination tree.
+prefix := $(wildcard ~)
+
 # External programs.
 SHELL := /bin/sh
 M4 := m4
@@ -14,10 +17,13 @@ M4 := m4
 # prevent '$' characters from being evaluated.
 shellquote = $(subst ','\'',$(1))
 
-# Template parameters.
-prefix := $(wildcard ~)
-quoted_prefix := $(call shellquote,$(value prefix))
-macros := prefix
+# M4 templates can use the printenv macro in common.m4 to output the
+# values of exported Make variables. (About "raw_prefix": If "prefix" is
+# set via the command line, GNU Make 3.81 seems to expand it before
+# exporting it, mangling paths that contain '$'. Using a separate
+# variable works around this.)
+export raw_prefix := $(value prefix)
+export quoted_prefix := $(call shellquote,$(value prefix))
 
 # The repository's child directories are "modules", containing "slices"
 # of the final directory tree. These are "layered" during installation.
@@ -81,8 +87,5 @@ installdirs: $(addsuffix -installdirs,$(MODULES))
 install: $(addsuffix -install,$(MODULES))
 uninstall: $(addsuffix -uninstall,$(MODULES))
 
-# Generate the command-line macro definitions.
-defines := $(foreach macro,$(macros),-D __$(macro)__='$($(macro))')
-
 % :: common.m4 $$@.m4
-	$(M4) $(defines) $^ >$@
+	$(M4) $^ >$@
