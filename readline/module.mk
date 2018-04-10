@@ -1,2 +1,2 @@
-readline_files := $(prefix)/.inputrc.colemakerel \
-                  $(prefix)/.zsh/readline.colemakerel.zshrc
+readline_files := readline/_inputrc.colemakerel \
+                  readline/_zsh/readline.colemakerel.zshrc

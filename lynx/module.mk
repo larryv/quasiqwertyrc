@@ -1,1 +1,1 @@
-lynx_files := $(prefix)/.lynx/lynx.cfg.colemakerel
+lynx_files := lynx/_lynx/lynx.cfg.colemakerel

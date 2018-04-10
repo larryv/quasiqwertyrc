@@ -1,1 +1,1 @@
-tmux_files := $(prefix)/.tmux.conf.colemakerel
+tmux_files := tmux/_tmux.conf.colemakerel
