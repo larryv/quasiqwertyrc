@@ -85,4 +85,4 @@ uninstall: $(addsuffix -uninstall,$(MODULES))
 defines := $(foreach macro,$(macros),-D __$(macro)__='$($(macro))')
 
 % :: common.m4 $$@.m4
-	$(M4) -P $(defines) $^ >$@
+	$(M4) $(defines) $^ >$@
