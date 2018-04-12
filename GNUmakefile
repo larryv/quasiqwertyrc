@@ -57,6 +57,7 @@ $(1)_dirs = $$(filter-out ./,$$(sort $$(dir $$(call installpath,$$($(1)_files)))
 .PHONY: $(1) $$(addprefix $(1)-,clean installdirs install uninstall)
 $(1): $$$$($(1)_files)
 $(1)-clean: _$(1)-clean
+$(1)-maintainer-clean: _$(1)-maintainer-clean
 $(1)-installdirs: _$(1)-installdirs
 $(1)-install: _$(1)-install
 $(1)-uninstall: _$(1)-uninstall
@@ -64,7 +65,9 @@ $(1)-uninstall: _$(1)-uninstall
 # Helper targets that do the real work.
 .PHONY: $$(addprefix _$(1)-,clean installdirs install uninstall)
 _$(1)-clean:
-	$$(if $$($(1)_generated_files),$$(RM) $$($(1)_generated_files))
+	$$(if $$($(1)_clean_files),$$(RM) $$($(1)_clean_files))
+_$(1)-maintainer-clean: $(1)-clean
+	$$(if $$($(1)_maintclean_files),$$(RM) $$($(1)_maintclean_files))
 # TODO: Remove unnecessary directories from installdirs.
 _$(1)-installdirs:
 	$$(if $$($(1)_dirs),cd -- '$$(quoted_prefix)' && mkdir -p $$($(1)_dirs))
@@ -83,6 +86,7 @@ include $(addsuffix /module.mk,$(MODULES))
 .DEFAULT_GOAL := all
 all: $(MODULES)
 clean: $(addsuffix -clean,$(MODULES))
+maintainer-clean: $(addsuffix -maintainer-clean,$(MODULES))
 installdirs: $(addsuffix -installdirs,$(MODULES))
 install: $(addsuffix -install,$(MODULES))
 uninstall: $(addsuffix -uninstall,$(MODULES))
