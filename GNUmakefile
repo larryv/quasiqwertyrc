@@ -27,7 +27,7 @@ export quoted_prefix := $(call shellquote,$(value prefix))
 
 # The repository's child directories are "modules", containing "slices"
 # of the final directory tree. These are "layered" during installation.
-MODULES := less lynx readline tmux vim zsh
+MODULES := less lynx readline tmux zsh
 
 # Transform repository pathnames into installation pathnames by replacing
 # leading underscores with dots and removing the prefixed module name.
