@@ -1,7 +1,8 @@
-[[ -o LOGIN ]] || return 0
-
-# ZLE configuration
 # -----
+# zsh keybindings for Colemak (QuasiQWERTY)
+# -----
+
+[[ -o LOGIN ]] || return 0
 
 bindkey -N emacs_colemak emacs
 bindkey -A emacs_colemak main
