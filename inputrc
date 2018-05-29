@@ -53,5 +53,3 @@ $if mode=emacs
 #"\C-xd":    glob-list-expansions
 
 $endif
-
-# vim: set filetype=readline:

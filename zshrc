@@ -62,5 +62,3 @@ bindkey '\eR' spell-word                    # ESC-S
 bindkey '\er' spell-word                    # ESC-s
 bindkey '^Xl' undo                          # ^Xu
 bindkey '^X^L' undo                         # ^X^U
-
-# vim: set filetype=zsh:
