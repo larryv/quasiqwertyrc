@@ -12,6 +12,7 @@ $if mode=emacs
 "\C-k":     next-history
 "\C-p":     reverse-search-history
 "\C-r":     forward-search-history
+"\M-\C-j":  yank-nth-arg
 
 # Editing
 "\C-s":     delete-char
