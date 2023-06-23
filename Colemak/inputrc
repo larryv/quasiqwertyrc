@@ -33,7 +33,7 @@ $if mode=emacs
 
 # Bash
 #
-# TODO: Make these conditional somehow? The Scala interpreter throws
+# TODO: Make these conditional somehow?  The Scala interpreter throws
 # warnings for these.
 #
 #"\C-y":     operate-and-get-next
