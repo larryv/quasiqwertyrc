@@ -20,5 +20,6 @@
 
 # quasiqwertyrc #
 
-This is a set of customizations for using Unix terminal programs with
-alternate keyboard layouts.  You probably shouldn't use it.
+This is a set of customizations for using Unix terminal programs with my
+[QuasiQWERTY](https://github.com/larryv/quasiqwerty) alternate keyboard
+layouts.  You probably shouldn't use it.
