@@ -1,0 +1,171 @@
+# CarpalxQGMLWB/zshrc - zsh keybindings for QGMLWB (QuasiQWERTY)
+# --------------------------------------------------------------
+#
+# SPDX-License-Identifier: CC0-1.0
+#
+# Written in ????, 2018, 2023 by Lawrence Velazquez <vq@larryv.me>.
+#
+# To the extent possible under law, the author has dedicated all
+# copyright and related and neighboring rights to this software to the
+# public domain worldwide.  This software is distributed without any
+# warranty.
+#
+# You should have received a copy of the CC0 Public Domain Dedication
+# along with this software.  If not, see
+# <https://creativecommons.org/publicdomain/zero/1.0/>.
+
+
+function {
+	emulate -L zsh
+
+	emacs_bindings=(
+		"^D"    beginning-of-line                   # ^A
+		"^J"    backward-char                       # ^B
+		"^T"    delete-char-or-list                 # ^D
+		"^M"    end-of-line                         # ^E
+		"^N"    forward-char                        # ^F
+		"^R"    send-break                          # ^G
+		"^U"    expand-or-complete                  # ^I
+		"^A"    accept-line                         # ^J
+		"^E"    kill-line                           # ^K
+		"^O"    clear-screen                        # ^L
+		"^P"    accept-line                         # ^M
+		"^K"    down-line-or-history                # ^N
+		"^V"    accept-line-and-down-history        # ^O
+		"^L"    history-incremental-search-backward # ^R
+		"^W"    transpose-chars                     # ^T
+		"^Y"    kill-whole-line                     # ^U
+		"^F"    quoted-insert                       # ^V
+		"^G"    backward-kill-word                  # ^W
+		"^X^J"  vi-match-bracket                    # ^X^B
+		"^X^N"  vi-find-next-char                   # ^X^F
+		"^X^A"  vi-join                             # ^X^J
+		"^X^E"  kill-buffer                         # ^X^K
+		"^X^K"  infer-next-history                  # ^X^N
+		"^X^V"  overwrite-mode                      # ^X^O
+		"^X^L"  _read_comp                          # ^X^R
+		"^X^Y"  undo                                # ^X^U
+		"^X^F"  vi-cmd-mode                         # ^X^V
+		"^XR"   list-expand                         # ^XG
+		"^Xd"   _expand_alias                       # ^Xa
+		"^Xt"   _list_expansions                    # ^Xd
+		"^Xm"   _expand_word                        # ^Xe
+		"^Xr"   list-expand                         # ^Xg
+		"^Xi"   _complete_help                      # ^Xh
+		"^Xp"   _most_recent_file                   # ^Xm
+		"^Xk"   _next_tags                          # ^Xn
+		"^Xl"   history-incremental-search-backward # ^Xr
+		"^Xw"   _complete_tag                       # ^Xt
+		"^Xy"   undo                                # ^Xu
+		"^B"    yank                                # ^Y
+		"^[^T"  list-choices                        # ^[^D
+		"^[^R"  send-break                          # ^[^G
+		"^[^I"  backward-kill-word                  # ^[^H
+		"^[^U"  self-insert-unmeta                  # ^[^I
+		"^[^A"  self-insert-unmeta                  # ^[^J
+		"^[^O"  clear-screen                        # ^[^L
+		"^[^P"  self-insert-unmeta                  # ^[^M
+		"^[D"   accept-and-hold                     # ^[A
+		"^[J"   backward-word                       # ^[B
+		"^[T"   kill-word                           # ^[D
+		"^[N"   forward-word                        # ^[F
+		"^[R"   get-line                            # ^[G
+		"^[I"   run-help                            # ^[H
+		"^[O"   down-case-word                      # ^[L
+		"^[K"   history-search-forward              # ^[N
+		"^[VD"  up-line-or-history                  # ^[OA
+		"^[VJ"  down-line-or-history                # ^[OB
+		"^[VC"  forward-char                        # ^[OC
+		"^[VT"  backward-char                       # ^[OD
+		"^[:"   history-search-backward             # ^[P
+		"^[W"   transpose-words                     # ^[T
+		"^[Y"   up-case-word                        # ^[U
+		"^[G"   copy-region-as-kill                 # ^[W
+		"^[[D"  up-line-or-history                  # ^[[A
+		"^[[J"  down-line-or-history                # ^[[B
+		"^[[T"  backward-char                       # ^[[D
+		"^[d"   accept-and-hold                     # ^[a
+		"^[j"   backward-word                       # ^[b
+		"^[t"   kill-word                           # ^[d
+		"^[n"   forward-word                        # ^[f
+		"^[r"   get-line                            # ^[g
+		"^[i"   run-help                            # ^[h
+		"^[o"   down-case-word                      # ^[l
+		"^[k"   history-search-forward              # ^[n
+		"^[;"   history-search-backward             # ^[p
+		"^[w"   transpose-words                     # ^[t
+		"^[y"   up-case-word                        # ^[u
+		"^[g"   copy-region-as-kill                 # ^[w
+		"^[b"   yank-pop                            # ^[y
+	)
+
+	for keymap in emacs
+	do
+		bindkey -N ${keymap}_quasiqwertyrc $keymap
+		bindings=${keymap}_bindings
+		for seq cmd in ${(P)bindings}
+		do
+			bindkey -M ${keymap}_quasiqwertyrc $seq $cmd
+		done
+	done
+}
+
+
+
+
+# Movement
+bindkey '^F' end-of-line            # ^E
+bindkey '^T' forward-char           # ^F
+bindkey '^X^T' vi-find-next-char    # ^X^F
+bindkey '\eT' forward-word          # ESC-F
+bindkey '\et' forward-word          # ESC-f
+
+# History
+bindkey '^K' down-line-or-history                   # ^N
+bindkey '^P' history-incremental-search-backward    # ^R
+bindkey '^Xp' history-incremental-search-backward   # ^Xr
+bindkey '^R' history-incremental-search-forward     # ^S
+bindkey '^Xr' history-incremental-search-forward    # ^Xs
+bindkey '\e:' history-search-backward               # ESC-P
+bindkey '\e;' history-search-backward               # ESC-p
+bindkey '\eK' history-search-forward                # ESC-N
+bindkey '\ek' history-search-forward                # ESC-n
+bindkey '^X^K' infer-next-history                   # ^X^N
+
+# Modifying
+bindkey '\eI' down-case-word        # ESC-L
+bindkey '\ei' down-case-word        # ESC-l
+bindkey '\eS' kill-word             # ESC-D
+bindkey '\es' kill-word             # ESC-d
+bindkey '^X^N' vi-join              # ^X^J
+bindkey '^E' kill-line              # ^K
+bindkey '^X^E' kill-buffer          # ^X^K
+bindkey '^L' kill-whole-line        # ^U
+bindkey '^X^Y' overwrite-mode       # ^X^O
+bindkey '\e^U' self-insert-unmeta   # ESC-^I
+bindkey '\e^N' self-insert-unmeta   # ESC-^J
+bindkey '^G' transpose-chars        # ^T
+bindkey '\eG' transpose-words       # ESC-T
+bindkey '\eg' transpose-words       # ESC-t
+bindkey '\eL' up-case-word          # ESC-U
+bindkey '\el' up-case-word          # ESC-u
+bindkey '^J' yank                   # ^Y
+bindkey '\ej' yank-pop              # ESC-y
+
+# Completion
+bindkey '^S' delete-char-or-list    # ^D
+bindkey '\e^S' list-choices         # ESC-^D
+bindkey '^Xd' list-expand           # ^Xg
+bindkey '^XD' list-expand           # ^XG
+
+# Miscellaneous
+bindkey '^N' accept-line                    # ^J
+bindkey '^Y' accept-line-and-down-history   # ^O
+bindkey '\eD' get-line                      # ESC-G
+bindkey '\ed' get-line                      # ESC-g
+bindkey '^D' send-break                     # ^G
+bindkey '\e^D' send-break                   # ESC-^G
+bindkey '\eR' spell-word                    # ESC-S
+bindkey '\er' spell-word                    # ESC-s
+bindkey '^Xl' undo                          # ^Xu
+bindkey '^X^L' undo                         # ^X^U

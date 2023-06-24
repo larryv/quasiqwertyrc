@@ -1,0 +1,117 @@
+# CarpalxQGMLWB/inputrc - readline keybindings for QGMLWB (QuasiQWERTY)
+# ---------------------------------------------------------------------
+#
+# SPDX-License-Identifier: CC0-1.0
+#
+# Written in ????, 2018, 2023 by Lawrence Velazquez <vq@larryv.me>.
+#
+# To the extent possible under law, the author has dedicated all
+# copyright and related and neighboring rights to this software to the
+# public domain worldwide.  This software is distributed without any
+# warranty.
+#
+# You should have received a copy of the CC0 Public Domain Dedication
+# along with this software.  If not, see
+# <https://creativecommons.org/publicdomain/zero/1.0/>.
+
+
+$if mode=emacs
+
+"\C-d":     beginning-of-line           (C-a)
+"\C-j":     backward-char               (C-b)
+"\C-t":     delete-char                 (C-d)
+"\C-m":     end-of-line                 (C-e)
+"\C-n":     forward-char                (C-f)
+"\C-r":     abort                       (C-g)
+"\C-u":     complete                    (C-i)
+"\C-a":     accept-line                 (C-j)
+"\C-e":     kill-line                   (C-k)
+"\C-o":     clear-screen                (C-l)
+"\C-p":     accept-line                 (C-m)
+"\C-k":     next-history                (C-n)
+"\C-l":     reverse-search-history      (C-r)
+"\C-w":     transpose-chars             (C-t)
+"\C-y":     unix-line-discard           (C-u)
+"\C-f":     quoted-insert               (C-v)
+"\C-g":     unix-word-rubout            (C-w)
+"\C-b":     yank                        (C-y)
+"\C-x\C-r": abort                       (C-x C-g)
+"\C-x\C-l": re-read-init-file           (C-x C-r)
+"\C-x\C-y": undo                        (C-x C-u)
+"\C-xm":    call-last-kbd-macro         (C-x e)
+
+$else
+
+set keymap vi-command
+"\C-t":     vi-eof-maybe                (C-d)
+"\C-m":     emacs-editing-mode          (C-e)
+"\C-r":     abort                       (C-g)
+# C-i is unused by default.  Safe to remap?
+#"\C-i":     backward-char               (C-h)
+"\C-a":     accept-line                 (C-j)
+"\C-e":     kill-line                   (C-k)
+"\C-o":     clear-screen                (C-l)
+"\C-p":     accept-line                 (C-m)
+"\C-k":     next-history                (C-n)
+"\C-l":     reverse-search-history      (C-r)
+"\C-w":     transpose-chars             (C-t)
+"\C-y":     unix-line-discard           (C-u)
+"\C-f":     quoted-insert               (C-v)
+"\C-g":     unix-word-rubout            (C-w)
+"\C-b":     yank                        (C-y)
+"h":        vi-char-search              (;)
+"D":        vi-append-eol               (A)
+"J":        vi-prev-word                (B)
+"T":        vi-delete-to                (D)
+"M":        vi-end-word                 (E)
+"N":        vi-char-search              (F)
+"R":        vi-fetch-history            (G)
+"U":        vi-insert-beg               (I)
+"K":        vi-search-again             (N)
+":":        vi-put                      (P)
+"L":        vi-replace                  (R)
+"W":        vi-char-search              (T)
+"Y":        revert-line                 (U)
+"G":        vi-next-word                (W)
+"B":        vi-yank-to                  (Y)
+"d":        vi-append-mode              (a)
+"j":        vi-prev-word                (b)
+"t":        vi-delete-to                (d)
+"m":        vi-end-word                 (e)
+"n":        vi-char-search              (f)
+"i":        backward-char               (h)
+"u":        vi-insertion-mode           (i)
+"a":        next-history                (j)
+"e":        prev-history                (k)
+"o":        forward-char                (l)
+"p":        vi-set-mark                 (m)
+"k":        vi-search-again             (n)
+";":        vi-put                      (p)
+"l":        vi-change-char              (r)
+"w":        vi-char-search              (t)
+"y":        vi-undo                     (u)
+"g":        vi-next-word                (w)
+"b":        vi-yank-to                  (y)
+
+set keymap vi-insert
+"\C-d":     "\C-a"
+"\C-j":     "\C-b"
+"\C-t":     vi-eof-maybe                (C-d)
+"\C-m":     "\C-e"
+"\C-n":     "\C-f"
+"\C-r":     "\C-g"
+"\C-u":     complete                    (C-i)
+"\C-a":     accept-line                 (C-j)
+"\C-e":     "\C-k"
+"\C-o":     "\C-l"
+"\C-p":     accept-line                 (C-m)
+"\C-k":     menu-complete               (C-n)
+"\C-v":     "\C-o"
+"\C-l":     reverse-search-history      (C-r)
+"\C-w":     transpose-chars             (C-t)
+"\C-y":     unix-line-discard           (C-u)
+"\C-f":     quoted-insert               (C-v)
+"\C-g":     unix-word-rubout            (C-w)
+"\C-b":     yank                        (C-y)
+
+$endif
